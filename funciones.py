@@ -1,3 +1,7 @@
+from data_stark import lista_personajes
+import os
+
+
 """
 Menu 1:
 1. Recorrer la lista imprimiendo por consola el nombre de cada superhéroe
@@ -34,13 +38,13 @@ def menu():
     return opcion
 
 
-def cargarLista(list_destino, list_origen):
+def cargarLista(list_destino: list, list_origen: list):
 
     for item in list_origen:
         list_destino.append(item)
 
 
-def mostrarPersonas(lista):
+def mostrarPersonas(lista: list):
     print(" ________________________________________________________________________________________________________________________________________________________________")
     print("|                                                                  *** lista de personas ***                                                                     |")
     print("|________________________________________________________________________________________________________________________________________________________________|")
@@ -52,7 +56,7 @@ def mostrarPersonas(lista):
     print("|________________________________________________________________________________________________________________________________________________________________|")
 
 
-def mostrarPersonasAlturas(lista):
+def mostrarPersonasAlturas(lista: list):
     print(' ---------------------------------------------------')
     print('|         Nombre             |          Altura      |')
     print('|---------------------------------------------------|')
@@ -62,7 +66,7 @@ def mostrarPersonasAlturas(lista):
     print(' ---------------------------------------------------')
 
 
-def personajeAlto(lista):
+def personajeAlto(lista: list):
 
     personaje_alto = lista[0]
 
@@ -83,7 +87,7 @@ def personajeAlto(lista):
         return 0
 
 
-def personajeBajo(lista):
+def personajeBajo(lista: list):
 
     personaBajo = lista[0]
 
@@ -105,7 +109,7 @@ def personajeBajo(lista):
     
 
 
-def calcularPromedio(lista):
+def calcularPromedio(lista: list):
 
     suma = 0
 
@@ -120,7 +124,7 @@ def calcularPromedio(lista):
     print(f'|  El promedio de altura es: {promedio:.2f}                 |')
     print('|___________________________________________________|')
 
-def filtrar_pesos(lista):
+def filtrar_pesos(lista: list):
 
     personajeP = lista[0]
     personajeL = lista[0]
@@ -185,7 +189,7 @@ Menu 2:
 """
 
 
-def submenu2(lista):
+def submenu2(lista: list):
 
     
     while True:
@@ -258,13 +262,13 @@ def submenu2(lista):
                 determinarInteligencia(lista)
 
             case 13:
-                informarPorColorOjos(lista)
+                informarPorClave(lista, "color_ojos")
 
             case 14:
-                informarPorColorPelo(lista)
+                informarPorClave(lista, "color_pelo")
 
             case 15:
-                informarPorInteligencia(lista)
+                informarPorClave(lista, "inteligencia")
 
             case 20:
                 break
@@ -273,22 +277,23 @@ def submenu2(lista):
 
 
 
-def mostrarPersonasFyM(lista, genero, titulo):
-    print(" ________________________________________________________________________________________________________________________________________________________________")
-    print(f"                                                                  *** Listado de genero {titulo} ***                                                             ")
-    print("|----------------------------------------------------------------------------------------------------------------------------------------------------------------|")
-    print("|    NOMBRE                |     identidad                  |  empresa      |altura | peso  |genero|      color de ojos      |color de pelo  |fuerza|inteligencia|")
-    print("|________________________________________________________________________________________________________________________________________________________________|")
+
+def mostrarPersonasFyM(lista: list, genero, titulo):
+    print(" ________________________________________________________________________________________________________________________________________________________________________")
+    print(f"|                                                                      *** Listado de genero {titulo} ***                                                               |")
+    print("|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|")
+    print("|    NOMBRE                |     identidad                  |  empresa      |altura  | peso   |genero|      color de ojos        |  color de pelo  |fuerza  |inteligencia|")
+    print("|________________________________________________________________________________________________________________________________________________________________________|")
 
     for personas in lista:
         if (personas["genero"] == genero):
-            print(f'|{personas["nombre"]:25s} | {personas["identidad"]:30s} | {personas["empresa"]:12s} | {personas["altura"]:.5} | {personas["peso"]:.5} | {personas["genero"]:2s}   | {personas["color_ojos"]:23s} | {personas["color_pelo"]:13s} | {personas["fuerza"]:3s}  | {personas["inteligencia"]:10s} |')
-    print("|________________________________________________________________________________________________________________________________________________________________|")
+            print(f'|{personas["nombre"]:25} | {personas["identidad"]:30} | {personas["empresa"]:12} | {personas["altura"]:6} | {personas["peso"]:6} | {personas["genero"]:2}   | {personas["color_ojos"]:25} | {personas["color_pelo"]:15} | {personas["fuerza"]:5}  | {personas["inteligencia"]:10} |')
+    print("|________________________________________________________________________________________________________________________________________________________________________|")
 
 
 
 
-def AlturasGenero(lista, genero, orden: str):
+def AlturasGenero(lista: list, genero, orden: str):
 
     
     altura_x = None
@@ -324,7 +329,7 @@ def AlturasGenero(lista, genero, orden: str):
     return altura_x
 
 
-def PromedioAlturaGenero(lista, genero, titulo: str):
+def PromedioAlturaGenero(lista: list, genero, titulo: str):
 
     suma = 0
     contador = 0
@@ -381,7 +386,7 @@ def mostrarAlturas(masculinoAlto, femeninaAlta, masculinoBajo, femeninaBaja):
         print("No se pudieron mostrar los datos!")
 
 
-def determinarColorOjos(lista):
+def determinarColorOjos(lista: list):
     
     colores_ojos = {
         "Brown": 0,
@@ -408,7 +413,7 @@ def determinarColorOjos(lista):
 
 
 
-def determinarColorPelo(lista):
+def determinarColorPelo(lista: list):
     
     contador_colores = {
         "Green": 0,
@@ -442,7 +447,7 @@ def determinarColorPelo(lista):
 
 
 
-def determinarInteligencia(lista):
+def determinarInteligencia(lista: list):
     
     contador = {"good": 0, "average": 0, "high": 0, "": 0}
     
@@ -464,92 +469,32 @@ def determinarInteligencia(lista):
     print('|__________________________________________________|')
 
 
-def informarPorColorOjos(lista):
-
+def informarPorClave(lista: list, key:str):
     print(' ________________________________________________________________________________________________________________________________________________________________')
-    print('|                                                                   Listado por color de ojos                                                                    |')
+    print(f'|                                                                   Listado por {key}                                                                   |')
     print('|----------------------------------------------------------------------------------------------------------------------------------------------------------------|')
     print("|    NOMBRE                |     identidad                  |  empresa      |altura | peso  |genero|      color de ojos      |color de pelo  |fuerza|inteligencia|")
     print("|----------------------------------------------------------------------------------------------------------------------------------------------------------------|")
 
-    personas_por_color = []
-    color_ojos = []
-    
-    for persona in lista:
-        personas_por_color.append(persona.copy())
+    personas_por_clave = []
+    valores_clave = []
 
-    for heroe in personas_por_color:
-        if not esta_en_lista(color_ojos, heroe["color_ojos"]):
-            color_ojos.append(heroe["color_ojos"])
-    
-    for color in color_ojos:
+    for persona in lista:
+        personas_por_clave.append(persona.copy())
+
+    for persona in personas_por_clave:
+        if persona[key] not in valores_clave:
+            valores_clave.append(persona[key])
+
+    for valor in valores_clave:
         print("|----------------------------------------------------------------------------------------------------------------------------------------------------------------|")
-        print(f'|                                                                {color:10.10}                                                                                  |')
+        print(f'|                                                                {valor:10.10}                                                                                  |')
         print("|----------------------------------------------------------------------------------------------------------------------------------------------------------------|")
-        for persona in personas_por_color:
-            if(persona["color_ojos"] == color):
-                print(f'|{persona["nombre"]:25s} | {persona["identidad"]:30s} | {persona["empresa"]:12s} | {persona["altura"]:.5} | {persona["peso"]:.5} | {persona["genero"]:2s}   | {persona["color_ojos"]:23s} | {persona["color_pelo"]:13s} | {persona["fuerza"]:3s}  | {persona["inteligencia"]:10s} |')
+        for persona in personas_por_clave:
+            if persona[key] == valor:
+                print(f'|{persona["nombre"]:25} | {persona["identidad"]:30} | {persona["empresa"]:12} | {persona["altura"]:6} | {persona["peso"]:6} | {persona["genero"]:2}   | {persona["color_ojos"]:25} | {persona["color_pelo"]:15} | {persona["fuerza"]:5}  | {persona["inteligencia"]:10} |')
     print('|________________________________________________________________________________________________________________________________________________________________|')
 
-
-def informarPorColorPelo(lista):
-
-    print(' ________________________________________________________________________________________________________________________________________________________________')
-    print('|                                                                   Listado por color de pelo                                                                    |')
-    print('|----------------------------------------------------------------------------------------------------------------------------------------------------------------|')
-    print("|    NOMBRE                |     identidad                  |  empresa      |altura | peso  |genero|      color de ojos      |color de pelo  |fuerza|inteligencia|")
-    print("|----------------------------------------------------------------------------------------------------------------------------------------------------------------|")
-    
-    personas_por_pelo = []
-    color_pelo = []
-
-    for persona in lista:
-        personas_por_pelo.append(persona.copy())
-
-    for heroe in personas_por_pelo:
-        if not esta_en_lista(color_pelo, heroe["color_pelo"]):
-            color_pelo.append(heroe["color_pelo"])
-
-    for color in color_pelo:
-        print("|----------------------------------------------------------------------------------------------------------------------------------------------------------------|")
-        print(f'|                                                                {color:10.10}                                                                                  |')
-        print("|----------------------------------------------------------------------------------------------------------------------------------------------------------------|")
-        for persona in personas_por_pelo:
-            if(persona["color_pelo"] == color):
-                print(f'|{persona["nombre"]:25s} | {persona["identidad"]:30s} | {persona["empresa"]:12s} | {persona["altura"]:.5} | {persona["peso"]:.5} | {persona["genero"]:2s}   | {persona["color_ojos"]:23s} | {persona["color_pelo"]:13s} | {persona["fuerza"]:3s}  | {persona["inteligencia"]:10s} |')
-    print('|________________________________________________________________________________________________________________________________________________________________|')
-
-
-def informarPorInteligencia(lista):
-
-    print(' ________________________________________________________________________________________________________________________________________________________________')
-    print('|                                                                   Listado por inteligencia                                                                     |')
-    print('|----------------------------------------------------------------------------------------------------------------------------------------------------------------|')
-    print("|    NOMBRE                |     identidad                  |  empresa      |altura | peso  |genero|      color de ojos      |color de pelo  |fuerza|inteligencia|")
-    
-    
-    personas_por_inteligencia = []
-    inteligencias = []
-
-    for persona in lista:
-        if(persona["inteligencia"] == ""):
-            persona["inteligencia"] = "No tiene"
-        
-    for persona in lista:
-            personas_por_inteligencia.append(persona.copy())
-
-    for heroe in personas_por_inteligencia:
-        if not esta_en_lista(inteligencias, heroe["inteligencia"]):
-            inteligencias.append(heroe["inteligencia"])
-
-    for inteligencia in inteligencias:
-        print("|----------------------------------------------------------------------------------------------------------------------------------------------------------------|")
-        print(f'|                                                                {inteligencia:10.10}                                                                                      |')
-        print("|----------------------------------------------------------------------------------------------------------------------------------------------------------------|")
-        for persona in personas_por_inteligencia:
-            if(persona["inteligencia"] == inteligencia):
-                print(f'|{persona["nombre"]:25s} | {persona["identidad"]:30s} | {persona["empresa"]:12s} | {persona["altura"]:.5} | {persona["peso"]:.5} | {persona["genero"]:2s}   | {persona["color_ojos"]:23s} | {persona["color_pelo"]:13s} | {persona["fuerza"]:3s}  | {persona["inteligencia"]:10s} |')
-    print('|________________________________________________________________________________________________________________________________________________________________|')
 
 
 def esta_en_lista(lista: list, item: str)->bool:
@@ -559,6 +504,528 @@ def esta_en_lista(lista: list, item: str)->bool:
             esta = True
             break
     return esta
+
+
+#03
+
+#1
+
+def obtener_nombre(lista: list):
+        
+    nombre = lista.get("nombre", "")
+    nombre_formateado = f"Nombre: {nombre}"
+    
+    return nombre_formateado
+
+
+def imprimir_dato(nombre: str):
+    print(nombre)
+
+
+
+
+
+
+
+#2
+
+def obtener_nombre_y_dato(lista: list, key: str):
+    
+    nombre = lista.get("nombre", "")
+
+    for clave, valor in lista.items():
+        if clave == key:
+            heroe = f"Nombre: {nombre:18} |{clave}: {valor}"
+            return heroe #devuelve el heroe
+    
+    return None #si no encuentra nada devuelve none
+
+
+
+
+
+
+
+#4
+
+def calcular_max(lista: list, key: str):
+
+    if not lista:
+        return None
+    
+    max_valor = None
+    heroe_max = None
+
+    for heroe in lista:
+        valor = heroe.get(key)
+
+        if valor is None:
+            return 0
+        else:
+            if max_valor is None or valor > max_valor:
+                max_valor = valor
+                heroe_max = heroe
+    
+    return heroe_max
+
+def calcular_min(lista: list, key: str):
+
+    if not lista:
+        return None
+    
+    min_valor = None
+    heroe_min = None
+
+    for heroe in lista:
+        valor = heroe.get(key)
+
+        if valor is None:
+            return 0
+        else:
+            if min_valor is None or valor < min_valor:
+                min_valor = valor
+                heroe_min = heroe
+                
+
+    return heroe_min
+
+
+def calcular_max_min_dato(lista: list, dato_a_calcular: str, key: str):
+
+    if(dato_a_calcular == "maximo"):
+        heroe_max = calcular_max(lista, key)
+        return heroe_max
+    elif(dato_a_calcular == "minimo"):
+        heroe_min = calcular_min(lista, key)
+        return heroe_min
+    else:
+        return None
+
+
+
+
+
+#5.1
+
+def sumar_dato_heroe(lista: list, key: str):
+    
+    suma = 0
+
+    for heroe in lista:
+        if(type(heroe) == dict and key in heroe):
+            if(heroe[key] is not None):
+                suma += heroe[key]
+    
+    return suma
+
+
+
+#5.2
+
+def dividir(dividendo: int, divisor: int):
+    
+    try:
+        int(dividendo)
+        int(divisor)
+    except ValueError:
+        print("Los parametros deben ser numeros enteros!")
+        
+    if(divisor == 0):
+        return 0
+    else:
+        division = dividendo / divisor
+        return division
+
+
+#5.3
+
+def calcular_promedio(lista: list, key:str):
+
+    promedio = 0
+    cantidad = 0
+
+    suma = sumar_dato_heroe(lista, key)
+
+    for heroe in lista:
+        cantidad += 1
+    
+    if(cantidad > 0):
+        promedio = dividir(suma, cantidad)
+        return promedio
+    else:
+        return 0
+    
+
+
+
+
+
+
+
+
+#6.1
+
+
+def imprimir_menu_002():
+    
+    imprimir_dato("""  ------------------------------------------------------
+ |               *** STARK INDUSTRIES ***               |
+ |------------------------------------------------------|
+ |1- listar heroes                                      |
+ |2- Lista de heroes con su altura                      |
+ |3- determinar heroe mas alto                          |
+ |4- determinar heroe mas bajo                          |
+ |5- Promedio de altura                                 |
+ |6- Informar asociados al maximo y minimo de altura    |
+ |7- Calcular e informar heroe mas y menos pesado       |
+ |8- Mas opciones                                       |
+ |9- Salir                                              |
+  ------------------------------------------------------""")
+    
+
+
+#6.2
+
+def validar_entero(numero:str):
+    
+    try:
+        int(numero)
+        return True
+    except ValueError:
+        return False
+
+
+#04
+
+#1.1
+
+def extraer_iniciales(nombre_heroe: str):
+    if nombre_heroe == "":
+        return "N/A"
+
+    nombre_heroe = nombre_heroe.replace("-", " ")
+    palabras = nombre_heroe.split()
+
+    iniciales = ""
+    for palabra in palabras:
+        if palabra.lower() != "the":
+            iniciales += palabra[0].upper() + "."
+    
+    return iniciales
+
+
+#1.2
+
+def definir_iniciales_nombre(heroe:dict):
+    if type(heroe) != dict:
+        return False
+    
+    if 'nombre' not in heroe:
+        return False
+    
+    iniciales = extraer_iniciales(heroe["nombre"])
+    heroe["iniciales"] = iniciales
+    return True
+
+
+#1.3
+
+def agregar_iniciales_nombre(lista: list):
+    if type(lista) != list:
+        return False
+    
+    if len(lista) == 0:
+        return False
+    
+    for heroe in lista:
+        if not definir_iniciales_nombre(heroe):
+            print("El origen de datos no contiene el formato correcto")
+            return False
+    
+    return True
+
+
+
+
+#2.1
+
+def generar_codigo_heroe(id_heroe, genero_heroe: str):
+    if not isinstance(id_heroe, int) or genero_heroe not in ['M', 'F', 'NB']:
+        return 'N/A'
+    
+    codigo_genero = genero_heroe + "-"
+    codigo_id = str(id_heroe).zfill(8)
+    codigo_final = codigo_genero + codigo_id
+
+    if(len(codigo_final) > 10):
+        return 'N/A'
+    
+    return codigo_final
+
+
+
+#2.2
+
+def agregar_codigo_heroe(heroe:dict, id_heroe):
+    if not heroe or type(heroe) != dict:
+        return False
+    
+    codigo_heroe = generar_codigo_heroe(id_heroe, heroe.get('genero', ''))
+    if codigo_heroe == 'N/A' or len(codigo_heroe) != 10:
+        return False
+
+    heroe['codigo_heroe'] = codigo_heroe
+    return True
+
+
+
+
+
+
+
+
+#3.1
+
+def sanitizar_entero(numero_str: str):
+
+    numero_str = numero_str.strip()
+
+    if not numero_str.isdigit():
+        return -1
+    
+    try:
+        numero = int(numero_str)
+    except ValueError:
+        return -3
+    
+    if numero < 0:
+        return -2
+    
+    return numero
+
+
+
+#3.2
+
+def contiene_caracteres_no_numericos(cadena: str):
+    for char in cadena:
+        if not (char.isdigit() or char == '.'):
+            return True
+    
+    return False
+
+def sanitizar_flotante(numero_str: str):
+
+    if contiene_caracteres_no_numericos(numero_str):
+        return -1
+
+    numero_str = numero_str.strip()
+
+    try:
+        numero = float(numero_str)
+    except ValueError:
+        return -3
+
+    if numero < 0:
+        return -2
+    
+    return numero
+
+
+
+
+#3.3
+
+def sanitizar_string(valor_str:str, valor_por_defecto='-'):
+    
+    valor_str = valor_str.strip()
+    valor_por_defecto = valor_por_defecto.strip()
+
+    if valor_str == '':
+        return valor_por_defecto.lower()
+    
+    tiene_numeros = False
+    for char in valor_str:
+        if char.isdigit():
+            tiene_numeros = True
+            break
+    
+    if tiene_numeros:
+        return 'N/A'
+    
+    valor_str = valor_str.replace('/', ' ')
+
+    return valor_str.lower()
+
+
+
+#3.4
+
+def sanitizar_dato(heroe:dict, clave: str, tipo_dato: str):
+    tipo_dato = tipo_dato.lower()
+    clave = clave.lower()
+
+    if tipo_dato not in ['string', 'entero', 'flotante']:
+        print("Tipo de dato no reconocido")
+        return False
+    
+    if clave not in heroe:
+        print("La clave especificada no existe en el heroe")
+        return False
+    
+    valor = heroe[clave]
+
+    if tipo_dato == "string":
+        heroe[clave] = sanitizar_string(valor)
+    elif tipo_dato == "entero":
+        heroe[clave] = sanitizar_entero(valor)
+    elif tipo_dato == "flotante":
+        heroe[clave] = sanitizar_flotante(valor)
+
+    return True
+
+
+
+
+
+
+
+
+
+#4.1
+
+
+def generar_indice_nombres(lista: list):
+
+    if not lista:
+        print("El origen de datos no contiene el formato correcto")
+        return
+
+    nombres = []
+
+    for heroe in lista:
+        if not isinstance(heroe, dict) or "nombre" not in heroe:
+            print("El origen de datos no contiene el formato correcto")
+            return
+        
+        nombre = heroe['nombre']
+        palabras = nombre.split()
+        nombres.extend(palabras)
+    
+    #print(nombres)
+
+    return nombres
+
+
+#5.1
+
+def convertir_cm_a_mtrs(valor_cm):
+    
+    if isinstance(valor_cm, (int, float)) and valor_cm > 0:
+        return valor_cm / 100
+    else:
+        return -1
+
+
+#5.2
+
+def generar_separador(patron, largo: int, imprimir: bool):
+
+    if len(patron) < 1 or len(patron) > 2:
+        return "N/A"
+    
+    if not isinstance(largo, int) or largo < 1 or largo > 235:
+        return "N/A"
+    
+    separador = ''
+    for h in range(largo):
+        separador += patron
+
+    if imprimir:
+        print(separador)
+
+    return separador
+
+
+#5.3
+
+def generar_encabezado(titulo:str):
+    
+    separador = generar_separador('*', 80, False)
+    titulo = titulo.upper()
+
+    encabezado = f"{separador}\n{titulo}\n{separador}"
+
+    return encabezado
+
+
+#5.4
+
+def imprimir_ficha_heroe(heroe:dict):
+
+    #encabezado principal
+    encabezado_principal = generar_encabezado("Principal")
+
+    #datos principales
+    nombre = heroe.get("nombre", "")
+    identidad = heroe.get("identidad", "")
+    empresa = heroe.get("empresa", "")
+    codigo_heroe = heroe.get("codigo_heroe", "")
+
+    #encabezado fisico
+    encabezado_fisico = generar_encabezado("Fisico")
+
+    #datos fisicos 
+    altura = convertir_cm_a_mtrs(heroe.get("altura", ""))
+    peso = heroe.get("peso", "")
+    fuerza = heroe.get("fuerza", "")
+
+    #encabezado señas particulares
+    encabezado_señas_particulares = generar_encabezado("Señas Particulares")
+
+
+    #encabezado señas particulares
+    color_ojos = heroe.get("color_ojos", "")
+    color_pelo = heroe.get("color_pelo", "")
+
+    #generar ficha
+    ficha = f"{encabezado_principal}\n"
+    ficha += f"NOMBRE DEL HEROE: {nombre} (S.M.)\n"
+    ficha += f"IDENTIDAD SECRETA: {identidad}\n"
+    ficha += f"CONSULTORA: {empresa}\n"
+    ficha += f"CÓDIGO DE HEROE: {codigo_heroe}\n"
+    ficha += f"{encabezado_fisico}\n"
+    ficha += f"ALTURA: {altura} Mtrs.\n"
+    ficha += f"PESO: {peso} Kg.\n"
+    ficha += f"FUERZA: {fuerza} \n"
+    ficha += f"{encabezado_señas_particulares}\n"
+    ficha += f"COLOR DE OJOS: {color_ojos}\n"
+    ficha += f"COLOR DE PELO: {color_pelo}\n"
+
+    #imprimir
+    print(ficha)
+
+
+#6.1
+
+def imprimir_menu_004():
+    print("""
+     --------------------------------------------------------
+    |               *** STARK INDUSTRIES ***                 |
+    |--------------------------------------------------------|
+    |1- Imprimir la lista de nombres junto con sus iniciales |
+    |2- Generar codigos de heroes                            |
+    |3- Normalizar datos                                     |
+    |4- Imprimir indice de nombres                           |
+    |5- Navegar fichas                                       |
+    |S- Salir                                                |
+     --------------------------------------------------------""")
+
+
+
+
+
+
 
 
 
