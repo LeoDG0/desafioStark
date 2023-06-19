@@ -285,6 +285,7 @@ def stark_marvel_app_4(lista_p: list):
     salir = 'n'
     lista = []
     cargarLista(lista, lista_p)
+    datos_codigos = 0
 
     while salir == 'n':
         os.system("cls")
@@ -293,12 +294,17 @@ def stark_marvel_app_4(lista_p: list):
             stark_imprimir_nombres_con_iniciales(lista)
         elif opcion == '2':
             stark_generar_codigos_heroes(lista)
+            datos_codigos = 1
         elif opcion == '3':
             stark_normalizar_datos_004(lista)
+            datos_codigos = 2
         elif opcion == '4':
             stark_imprimir_indice_nombres(lista)
         elif opcion == '5':
-            stark_navegar_fichas(lista)
+            if datos_codigos == 2:
+                stark_navegar_fichas(lista)
+            else:
+                print("Debe cargar los codigos y normalizar los datos primero!")
         elif opcion == 'S':
             salir = input("Confirma salida? s/n: ")
             if salir.lower() == "s":

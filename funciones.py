@@ -990,7 +990,7 @@ def imprimir_ficha_heroe(heroe:dict):
 
     #generar ficha
     ficha = f"{encabezado_principal}\n"
-    ficha += f"NOMBRE DEL HEROE: {nombre} (S.M.)\n"
+    ficha += f"NOMBRE DEL HEROE: {nombre}\n"
     ficha += f"IDENTIDAD SECRETA: {identidad}\n"
     ficha += f"CONSULTORA: {empresa}\n"
     ficha += f"CÓDIGO DE HEROE: {codigo_heroe}\n"
